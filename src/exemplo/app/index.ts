@@ -1,7 +1,7 @@
 import "./usuario/RegistrarUsuario";
 
 import "./portas/Colecao";
-import "./portas/ProvedorCriptografia";
+import "./usuario/ProvedorCriptografia";
 
 import "../adaptadores/BancoEmMemoria";
 import "../adaptadores/auth/InverterSenha";

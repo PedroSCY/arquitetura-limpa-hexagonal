@@ -1,19 +1,22 @@
-import Colecao from "../portas/Colecao";
-import ProvedorCriptografia from "../portas/ProvedorCriptografia";
+import ProvedorCriptografia from "./ProvedorCriptografia";
+import ColecaoUsuario from "./ColecaoUsuario";
 import Usuario from "./Usuario";
-
+import Id from "../shared/id";
 
 export default class RegistrarUsuario {
   constructor(
-    private colecao: Colecao,
+    private colecao: ColecaoUsuario,
     private provedorCriptografia: ProvedorCriptografia
   ) {}
 
-  executar(nome: string, email: string, senha: string): Usuario {
+  async executar(nome: string, email: string, senha: string): Promise<Usuario> {
     const senhaCripto = this.provedorCriptografia.criptografar(senha);
 
+    const usuarioExistente = await this.colecao.buscarPorEmail(email)
+    if(usuarioExistente) throw new Error("Usuário já existe")
+
     const usuario: Usuario = {
-      id: Math.random().toString(),
+      id: Id.gerar(),
       nome,
       email,
       senha: senhaCripto,

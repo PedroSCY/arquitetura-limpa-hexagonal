@@ -1,14 +1,13 @@
-import ProvedorCriptografia from "../../app/portas/ProvedorCriptografia";
-import bcrypt from "bcrypt"
+import ProvedorCriptografia from "../../app/usuario/ProvedorCriptografia";
+import bcrypt from "bcrypt";
 
 export default class CriptoReal implements ProvedorCriptografia {
+  criptografar(senha: string): string {
+    const salt = bcrypt.genSaltSync(10);
+    return bcrypt.hashSync(senha, salt);
+  }
 
-    criptografar(senha: string): string {
-        const salt = bcrypt.genSaltSync(10)
-        return bcrypt.hashSync(senha,salt)
-    }
-
-    comparar(senha: string, senhaCriptografada: string): boolean {
-        return bcrypt.compareSync(senha, senhaCriptografada)
-    }
+  comparar(senha: string, senhaCriptografada: string): boolean {
+    return bcrypt.compareSync(senha, senhaCriptografada);
+  }
 }
