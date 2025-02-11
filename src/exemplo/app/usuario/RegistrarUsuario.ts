@@ -1,5 +1,6 @@
 import Colecao from "../portas/Colecao";
 import ProvedorCriptografia from "../portas/ProvedorCriptografia";
+import Usuario from "./Usuario";
 
 
 export default class RegistrarUsuario {
@@ -8,11 +9,11 @@ export default class RegistrarUsuario {
     private provedorCriptografia: ProvedorCriptografia
   ) {}
 
-  executar(nome: string, email: string, senha: string) {
+  executar(nome: string, email: string, senha: string): Usuario {
     const senhaCripto = this.provedorCriptografia.criptografar(senha);
 
-    const usuario = {
-      id: Math.random(),
+    const usuario: Usuario = {
+      id: Math.random().toString(),
       nome,
       email,
       senha: senhaCripto,
